@@ -1,0 +1,41 @@
+﻿@model List<WebApplication1.Models.UrunModel>
+@{
+    ViewData["Title"] = "Ürünler";
+}
+
+<h1>Ürünler</h1>
+
+<form asp-action="Index" asp-controller="Home" method="get">
+    <p>
+        <input type="text" name="searchString" placeholder="Ürün adı ara...">
+        <input type="submit" value="Ara">
+    </p>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Adı</th>
+            <th>Birim Gram</th>
+            <th>Birim Fiyat</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Adi</td>
+                <td>@item.BirimGram</td>
+                <td>@item.BirimFiyat</td>
+                <td>
+                    <a class="btn btn-primary" href="@Url.Action("Islem", "Home", new { gelen = item.Id })">İşlem</a>
+                    <a class="btn btn-success" href="@Url.Action("Update", "Home", new { gelen = item.Id })">Güncelle</a>
+                    <a class="btn btn-danger" href="@Url.Action("Delete", "Home", new { gelen = item.Id })">Sil</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,22 @@
+﻿@using WebApplication1.Models;
+@model UrunModel
+@{
+    ViewBag.Title = "Update";
+}
+
+@using (Html.BeginForm("Update1", "Home", FormMethod.Post))
+{
+    @Html.LabelFor(m => m.Adi, new { @class = "exampleInputEmail1" })
+    @Html.TextBoxFor(m => m.Adi, new { @class = "form-control" })
+    @Html.LabelFor(m => m.BirimGram, new { @class = "exampleInputEmail1" })
+    @Html.TextBoxFor(m => m.BirimGram, new { @class = "form-control",@type = "number" })
+    @Html.LabelFor(m => m.BirimFiyat, new { @class = "exampleInputEmail1" })
+    @Html.TextBoxFor(m => m.BirimFiyat, new { @class = "form-control",@type = "number" })
+    @Html.LabelFor(m => m.BirimKoli, new { @class = "exampleInputEmail1" })
+    @Html.TextBoxFor(m => m.BirimKoli, new { @class = "form-control",@type = "number" })
+    @Html.LabelFor(m => m.Fire, new { @class = "exampleInputEmail1" })
+    @Html.TextBoxFor(m => m.Fire, new { @class = "form-control",@type = "number" })
+    <button type="submit" class="btn btn-primary">Güncelle</button>
+}
+<br />
+@Html.ActionLink("İptal", "Index", "Home", new { @class = "btn btn-success" })

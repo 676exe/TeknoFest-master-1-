@@ -1,0 +1,66 @@
+﻿@using WebApplication1.Models
+@{UrunVt urunVt = new UrunVt(); }
+@model  UrunModel
+@{
+    UrunVt veritaban = new UrunVt();
+
+}
+
+<div style="float:right; margin-bottom:10px;">
+    <input type="text" id="searchInput" placeholder="Ürün Adı Ara..." onkeyup="searchTable()">
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <td>@Html.DisplayNameFor(p => p.Id)</td>
+            <td>@Html.DisplayNameFor(p => p.Adi)</td>
+            <td>@Html.DisplayNameFor(p => p.BirimGram)</td>
+            <td>@Html.DisplayNameFor(p => p.BirimFiyat)</td>
+            <td>Guncelle</td>
+            <td>Sil</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in urunVt.UrunTable.ToList())
+        {
+            <tr class="urunRow">
+                <!-- Her satıra "urunRow" sınıfı ekleniyor -->
+                <td>@item.Id</td>
+                <td>@item.Adi</td>
+                <td>@item.BirimGram</td>
+                <td>@item.BirimFiyat</td>
+                <td>@Html.ActionLink("İşlem", "Islem", "Home", new { gelen = item.Id }, new { @class = "btn btn-primary" })</td>
+                <td>@Html.ActionLink("Güncelle", "Update", "Home", new { gelen = item.Id }, new { @class = "btn btn-success" })</td>
+                <td>@Html.ActionLink("Sil", "Delete", "Home", new { gelen = item.Id }, new { @class = "btn btn-danger" })</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section scripts{
+    <script>
+        function searchTable() {
+            // Arama kutusundaki değeri al
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("searchInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("urunTable");
+            tr = table.getElementsByTagName("tr");
+
+            // Tablodaki her satırın ikinci sütununu (ürün adını) kontrol et
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[1]; // İkinci sütun ürün adını içeriyor
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    // Aranan kelimeyi içeren satırları göster, içermeyenleri gizle
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = ""; // Aranan kelimeyi içeren satırları göster
+                    } else {
+                        tr[i].style.display = "none"; // Aranan kelimeyi içermeyen satırları gizle
+                    }
+                }
+            }
+        }
+    </script>
+}

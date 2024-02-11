@@ -1,0 +1,62 @@
+﻿@{
+    ViewBag.Title = "Islem";
+}
+
+@using WebApplication1.Models
+@model IslemModel
+@{ UrunVt urunVt = new UrunVt();
+    UrunModel urunModel = urunVt.UrunTable.FirstOrDefault(p => p.Id == UrunVt.UrunID); }
+<div>
+    <div>
+        <div class="urun">Adı</div>
+        <div class="urun">Birim Gram</div>
+        <div class="urun">Birim Fiyat</div>
+        <div class="urun">Birim Koli</div>
+        <div class="urun">Fire</div>
+    </div>
+    <br />
+    <div>
+        <div class="urun"><b>@urunModel.Adi</b></div>
+        <div class="urun"><b>@urunModel.BirimGram</b></div>
+        <div class="urun"><b>@urunModel.BirimFiyat</b></div>
+        <div class="urun"><b>@urunModel.BirimKoli</b></div>
+        <div class="urun"><b>@urunModel.Fire</b></div>
+    </div>
+    <div class="text1">
+        @using (Html.BeginForm("Islem2", "Home", FormMethod.Post))
+        {
+            <div> @Html.TextBoxFor(p => p.ToplamGram, new { placeholder = "Gram Giriniz", @class = "exampleInputEmail1 text", @type = "number" })</div>
+            <button type="submit" class="btn btn-primary text">Ekle</button>
+        }
+        @Html.ActionLink("İptal", "Index", "Home", new { @class = "btn btn-success text" })
+    </div>
+
+
+    <table class="table">
+        <thead>
+            <tr>
+                <td>@Html.DisplayNameFor(p => p.Id)</td>
+                <td>@Html.DisplayNameFor(p => p.UrunId)</td>
+                <td>@Html.DisplayNameFor(p => p.ToplamGram)</td>
+                <td>@Html.DisplayNameFor(p => p.ToplamKoli)</td>
+                <td>@Html.DisplayNameFor(p => p.ToplamFiyat)</td>
+                <td>@Html.DisplayNameFor(p => p.Adet)</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in urunVt.IslemTable.Where(p=>p.UrunId == UrunVt.UrunID).ToList())
+            {
+
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.UrunId</td>
+                    <td>@item.ToplamGram</td>
+                    <td>@item.ToplamKoli</td>
+                    <td>@item.ToplamFiyat</td>
+                    <td>@item.Adet</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
